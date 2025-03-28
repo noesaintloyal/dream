@@ -1,0 +1,204 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden; 
+    background-color: black;
+}
+
+canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+#dark-blur {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px); 
+    z-index: 9999; 
+    pointer-events: none; 
+    transition: opacity 0.5s ease; 
+    opacity: 1; 
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    overflow: hidden;
+}
+
+#swipe-text {
+    position: absolute;
+    color: white;
+    font-size: 1.5rem;
+    font-family: Arial, sans-serif;
+    z-index: 2; 
+    mix-blend-mode: difference; 
+    text-align: center;
+    font-weight: 900; 
+}
+
+#swipe-indicator {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.circle {
+    width: 75px;
+    height: 75px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    position: absolute;
+    animation: moveUpWithTrail 2s infinite ease-in-out;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    overflow: visible;
+}
+
+.circle::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 80%);
+    filter: blur(20px);
+    transform: scale(1.5); 
+    opacity: 0;
+    animation: trailFade 2s infinite ease-in-out;
+}
+
+@keyframes trailFade {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes moveUpWithTrail {
+    0% {
+        transform: translateY(200%); 
+        opacity: 0;
+        filter: blur(10px); 
+    }
+    50% {
+        transform: translateY(0); 
+        opacity: 1;
+        filter: blur(0); 
+    }
+    100% {
+        transform: translateY(-200%); 
+        opacity: 0;
+        filter: blur(10px); 
+    }
+}
+
+#dark-blur-step2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    z-index: 9998; 
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+#overlay-step2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+#double-click-text {
+    position: absolute;
+    color: white;
+    font-size: 1.5rem;
+    font-family: Arial, sans-serif;
+    z-index: 2;
+    mix-blend-mode: difference;
+    text-align: center;
+    font-weight: 900;
+}
+
+#double-click-indicator {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.double-circle {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    position: absolute;
+    animation: doubleClick 2s infinite ease-in-out; 
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.double-circle:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+@keyframes doubleClick {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    30% {
+        transform: scale(1.5);
+        opacity: 0.3;
+    }
+    60% {
+        transform: scale(1.5);
+        opacity: 0;
+        filter: blur(5px);
+    }
+    100% {
+        transform: scale(2);
+        opacity: 0;
+        filter: blur(10px)
+    }
+}
