@@ -208,14 +208,14 @@ canvas {
     left: 0;
     right: 0;
     bottom: 0;
-    background: black; /* Черный фон */
-    color: white; /* Белый текст */
-    display: flex; /* Используем Flexbox для центрирования */
-    align-items: center; /* Вертикальное центрирование */
-    justify-content: center; /* Горизонтальное центрирование */
-    font-family: Arial, sans-serif; /* Шрифт для текста */
-    font-size: 24px; /* Размер шрифта */
-    z-index: 9999; /* Чтобы экран загрузки был сверху */
+    background: black;
+    color: white; 
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    font-family: Arial, sans-serif; 
+    font-size: 24px; 
+    z-index: 9999; 
   }
   #custom-dark-blur {
     position: fixed;
@@ -250,14 +250,14 @@ canvas {
     font-weight: bold;
     color: white;
     opacity: 0;
-    transform: translateY(100%); /* Начальная позиция снизу */
-    filter: blur(10px); /* Начальное размытие */
-    transition: opacity 1s ease, transform 1s ease, filter 1s ease; /* Плавные переходы */
+    transform: translateY(100%); 
+    filter: blur(10px); 
+    transition: opacity 1s ease, transform 1s ease, filter 1s ease; 
 }
 
 #custom-text.visible {
-    opacity: 1; /* Полная видимость */
-    transform: translateY(0); /* Центруем текст */
-    filter: blur(0); /* Убираем размытие */
+    opacity: 1; 
+    transform: translateY(0);
+    filter: blur(0); 
 }
 
