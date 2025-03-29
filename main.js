@@ -10,7 +10,7 @@ const loader = new THREE.GLTFLoader();
 let platform1, platform2, whiteCube, whiteCube2, whiteLight, whiteCube2Light, newWhiteCube1, newWhiteCube2, newWhiteLight1, newWhiteLight2, newWhiteLight3, newWhiteLight4;
 
 const cubeGeometry = new THREE.BoxGeometry(0.5, 0.5, 0.5);
-const cubeMaterial = new THREE.MeshStandardMaterial({ color: 0xffff00 });
+const cubeMaterial = new THREE.MeshStandardMaterial({ color: 0xffff00, opacity: 0, transparent: true});
 const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
 cube.position.y = -7.3;
 cube.castShadow = true;
@@ -89,7 +89,7 @@ const movementStages = [
 ];
 
 let currentStage = 0;
-const speed = 0.03;
+const speed = 0.015;
 let targetPosition = null;
 let isScrolling = false;
 let lastScrollTime = 0;
@@ -724,3 +724,66 @@ function animate() {
 
     renderer.render(scene, camera);
 }
+
+const modelsToLoad = [
+    'assets/22.gltf',
+    'assets/33.gltf',
+    'assets/24.gltf',
+    'assets/25.gltf',
+    'assets/23.gltf',
+  ];
+  
+  let loadedModels = [];
+  
+  function loadModels() {
+    const loadPromises = modelsToLoad.map((url) => {
+      return new Promise((resolve, reject) => {
+        loader.load(url, (gltf) => {
+          loadedModels.push(gltf.scene);
+          resolve();
+        }, undefined, (error) => {
+          reject(`Ошибка ${url}: ${error}`);
+        });
+      });
+    });
+  
+    return Promise.all(loadPromises);
+  }
+  
+  loadModels().then(() => {
+    document.getElementById('loading-screen').style.display = 'none';
+    initScene(); 
+  }).catch((error) => {
+  });  
+
+  function showFinalMenu() {
+    const customBlur = document.getElementById('custom-dark-blur');
+    const customOverlay = document.getElementById('custom-overlay');
+    const customText = document.getElementById('custom-text');
+
+    if (customBlur && customOverlay && customText) {
+        customBlur.style.opacity = '1'; 
+        customText.classList.add('visible'); 
+
+        customText.addEventListener('click', () => {
+            location.reload();
+        });
+    } else {
+        console.error("Элементы меню не найдены");
+    }
+}
+
+function checkCubePositionForFinalStep() {
+    if (Math.abs(cube.position.z - (-20)) < 0.1) { 
+        showFinalMenu(); 
+    }
+}
+
+function animateCustom() {
+    requestAnimationFrame(animateCustom);
+    moveCube();
+    checkCubePositionForFinalStep(); 
+    renderer.render(scene, camera); 
+}
+
+animateCustom();
