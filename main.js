@@ -38,7 +38,7 @@ loader.load('assets/22.gltf', (gltf) => {
     scene.add(platform1);
 });
 
-loader.load('/assets/33.gltf', (gltf) => {
+loader.load('assets/33.gltf', (gltf) => {
     platform2 = gltf.scene;
     const box = new THREE.Box3().setFromObject(platform2);
     const size = new THREE.Vector3();
@@ -230,7 +230,7 @@ function handleNewWhiteCube2Click(event) {
         newWhiteLight2 = null;
 
 
-        loader.load('/assets/24.gltf', (gltf) => {
+        loader.load('assets/24.gltf', (gltf) => {
             if (platform1) {
                 scene.remove(platform1);
             }
@@ -337,7 +337,7 @@ function handleNewWhiteCube4Click(event, whiteCube, whiteLight, handler) {
  
         window.removeEventListener('click', handler);
 
-        loader.load('/assets/25.gltf', (gltf) => {
+        loader.load('assets/25.gltf', (gltf) => {
             if (platform1) {
                 scene.remove(platform1);
             }
@@ -470,7 +470,7 @@ function handleWhiteCube2Click(event) {
         scene.remove(whiteCube2Light);
 
         scene.remove(platform1);
-        loader.load('/assets/23.gltf', (gltf) => {
+        loader.load('assets/23.gltf', (gltf) => {
             platform1 = gltf.scene;
             const box = new THREE.Box3().setFromObject(platform1);
             const size = new THREE.Vector3();
