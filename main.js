@@ -27,7 +27,7 @@ pointLightPink.castShadow = true;
 pointLightPink.visible = false;
 scene.add(pointLightPink);
 
-loader.load('/assets/22.gltf', (gltf) => {
+loader.load('assets/22.gltf', (gltf) => {
     platform1 = gltf.scene;
     const box = new THREE.Box3().setFromObject(platform1);
     const size = new THREE.Vector3();
