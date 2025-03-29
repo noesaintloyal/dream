@@ -635,16 +635,6 @@ window.addEventListener('wheel', () => {
     }
 });
 
-function addHideStep2Listener() {
-    const isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
-    if (isMobile) {
-        window.addEventListener('touchend', hideStep2);
-    } else {
-        window.addEventListener('dblclick', hideStep2);
-    }
-}
-
 function showStep2() {
     const darkBlurStep2 = document.getElementById('dark-blur-step2');
     const overlayStep2 = document.getElementById('overlay-step2');
@@ -654,8 +644,17 @@ function showStep2() {
             darkBlurStep2.style.opacity = '1';
             overlayStep2.style.opacity = '1';
 
-            addHideStep2Listener();
+            window.addEventListener('dblclick', hideStep2);
+
+            window.addEventListener('touchend', handleMobileTouch);
         }, 2800); 
+    }
+}
+
+function handleMobileTouch(event) {
+
+    if (event.detail === 2) { 
+        hideStep2();
     }
 }
 
@@ -674,7 +673,7 @@ function hideStep2() {
     }
 
     window.removeEventListener('dblclick', hideStep2);
-    window.removeEventListener('touchend', hideStep2);
+    window.removeEventListener('touchend', handleMobileTouch);
 }
 
 
