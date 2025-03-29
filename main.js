@@ -645,16 +645,7 @@ function showStep2() {
             overlayStep2.style.opacity = '1';
 
             window.addEventListener('dblclick', hideStep2);
-
-            window.addEventListener('touchend', handleMobileTouch);
         }, 2800); 
-    }
-}
-
-function handleMobileTouch(event) {
-
-    if (event.detail === 2) { 
-        hideStep2();
     }
 }
 
@@ -667,13 +658,16 @@ function hideStep2() {
         overlayStep2.style.opacity = '0';
 
         setTimeout(() => {
-            darkBlurStep2.remove();
-            overlayStep2.remove();
+            if (darkBlurStep2.parentNode) {
+                darkBlurStep2.remove();
+            }
+            if (overlayStep2.parentNode) {
+                overlayStep2.remove();
+            }
         }, 50); 
     }
 
     window.removeEventListener('dblclick', hideStep2);
-    window.removeEventListener('touchend', handleMobileTouch);
 }
 
 
